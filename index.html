@@ -1,878 +1,727 @@
 <!doctype html>
-
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    <title>Productivity Dashboard</title>
+  <title>Productivity Dashboard</title>
 
+  <link rel="stylesheet" href="style.css">
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
   href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
   rel="stylesheet"
 />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
-    <!-- Tailwind CSS for UI styling -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <style>
-      * {
-        box-sizing: border-box;
-      }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-      html,
-      body,
-      #scene {
-        min-height: 100%;
-      }
+    html,
+    body,
+    #scene {
+      min-height: 100%;
+    }
 
-      body {
-        margin: 0;
-        font-family: "Public Sans", system-ui, sans-serif;
-        padding-top: env(safe-area-inset-top, 0px);
-        padding-bottom: env(safe-area-inset-bottom, 0px);
-        transition:
-          color 0.3s ease,
-          background 0.3s ease;
-      }
+    body {
+      margin: 0;
+      font-family: "Public Sans", system-ui, sans-serif;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      transition: color 0.3s ease, background 0.3s ease;
+    }
 
-      #scene {
-        min-height: 100vh;
-        transition: background 1.2s ease;
-      }
+    #scene {
+      min-height: 100vh;
+      transition: background 1.2s ease;
+    }
 
-      ::selection {
-        background: rgba(47, 111, 94, 0.2);
-      }
+    ::selection {
+      background: rgba(47, 111, 94, 0.2);
+    }
 
-      .font-display {
-        font-family: "Fraunces", serif;
-      }
+    .font-display {
+      font-family: "Fraunces", serif;
+    }
 
-      .accent {
-        background-color: #2f6f5e;
-      }
+    .accent {
+      background-color: #2f6f5e;
+    }
 
-      .accent:hover {
-        background-color: #275d4f;
-      }
+    .accent:hover {
+      background-color: #275d4f;
+    }
 
-      .accent-text {
-        color: #2f6f5e;
-      }
+    .accent-text {
+      color: #2f6f5e;
+    }
 
-      .feature-view {
-        background: rgba(242, 239, 233, 0.96);
-      }
+    .feature-view {
+      background: rgba(242, 239, 233);
+    }
 
-      .dark .feature-view {
-        background: rgba(16, 19, 28, 0.96);
-      }
-    </style>
-  </head>
+    body.dark {
+      background: #10131c;
+      color: #f5f5f5;
+    }
 
-  <body class="">
-    <div id="scene" class="min-h-screen">
-      <!-- =========================================================
-     DASHBOARD
-     ========================================================= -->
-      <main id="dashboard" class="max-w-3xl mx-auto px-5 py-8 pb-16">
-        <!-- Header -->
-        <header
-          class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"
-        >
-          <div>
-            <h1
-              class="font-display text-2xl sm:text-3xl font-semibold tracking-tight"
-            >
-              Productivity Dashboard
-            </h1>
+    body.dark .feature-view {
+      background: rgba(16, 19, 28);
+    }
 
-            <p class="text-sm text-neutral-600 mt-0.5">
-              your day, in one place
-            </p>
-          </div>
+    body.dark .text-black {
+      color: #f5f5f5 !important;
+    }
 
-          <!-- Date / Time / Theme -->
-          <div class="flex items-center gap-3 self-stretch sm:self-auto justify-between sm:justify-start">
-            <div class="text-left sm:text-right">
-              <div
-                id="clockTime"
-                class="font-display text-xl sm:text-2xl tabular-nums"
-              >
-              </div>
+    body.dark .text-neutral-900 {
+      color: #f5f5f5 !important;
+    }
 
-              <div id="clockDate" class="text-xs text-neutral-600 mt-0.5">
-                
-              </div>
-            </div>
+    body.dark .text-neutral-700 {
+      color: #d4d4d4 !important;
+    }
 
-            <button
-              id="themeToggle"
-              type="button"
-              aria-label="Toggle light and dark theme"
-              class="w-9 h-9 shrink-0 rounded-full cursor-pointer border border-neutral-900/10 bg-white/70 backdrop-blur flex items-center justify-center"
-            >
-              <i class="ri-moon-fill"></i>
-            </button>
-          </div>
-        </header>
+    body.dark .text-neutral-600 {
+      color: #a3a3a3 !important;
+    }
 
-        <!-- =======================================================
-       MOTIVATION MINI WIDGET
-       ======================================================= -->
-        <section
-          aria-label="Daily motivation"
-          class="rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-        >
-          <div class="min-w-0 flex-1">
-            <blockquote
-              id="miniQuoteText"
-              class="font-display text-base leading-snug break-words text-black  text-wrap"
-            >
-             
-            </blockquote>
+    body.dark .text-neutral-500 {
+      color: #737373 !important;
+    }
 
-            <cite
-              id="miniQuoteAuthor"
-              class="not-italic text-xs text-neutral-600"
-            >
-              
-            </cite>
-          </div>
+    body.dark .bg-white\/70 {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }
 
-          <button
-            id="miniQuoteNew"
-            type="button"
-            class="self-start sm:self-auto shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full accent text-white"
+    body.dark .bg-white\/80 {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    body.dark .border-neutral-900\/10 {
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    body.dark input {
+      color: #f5f5f5;
+    }
+
+    body.dark input::placeholder {
+      color: #737373;
+    }
+
+    body.dark #themeToggle {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    body.dark #themeToggle i {
+      color: #f5f5f5;
+    }
+  </style>
+</head>
+
+<body>
+  
+ <div class="background-layer" aria-hidden="true">
+    <video
+      id="backgroundVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="background.jpg"
+    >
+      <source src="background.mp4" type="video/mp4" />
+      
+    </video>
+
+    <div class="background-overlay"></div>
+  </div>
+
+  <div id="scene" class="min-h-screen">
+
+    <main id="dashboard" class="max-w-3xl mx-auto px-5 py-8 pb-16">
+
+      <header
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"
+      >
+        <div>
+          <h1
+            class="font-display text-2xl sm:text-3xl font-semibold tracking-tight"
           >
-            New
-          </button>
-        </section>
+            Productivity Dashboard
+          </h1>
 
-        <!-- =======================================================
-       WEATHER WIDGET
-       ======================================================= -->
-        <section
-          aria-label="Weather information"
-          class="rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 mb-6"
+          <p class="text-sm text-neutral-600 mt-0.5">
+            your day, in one place
+          </p>
+        </div>
+
+        <div
+          class="flex items-center gap-3 self-stretch sm:self-auto justify-between sm:justify-start"
         >
-          <div class="flex items-center justify-between gap-3 mb-3">
-            <div class="min-w-0">
-              <div id="weatherLoc" class="text-sm text-neutral-700 truncate">
-                Location
-              </div>
-
-              <div id="weatherCond" class="text-xs text-neutral-500 mt-0.5">
-                Weather condition
-              </div>
-            </div>
+          <div class="text-left sm:text-right">
+            <div
+              id="clockTime"
+              class="font-display text-xl sm:text-2xl tabular-nums"
+            ></div>
 
             <div
-              id="weatherTemp"
-              class="font-display text-lg sm:text-xl shrink-0 text-black"
-            >
-              --°C
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3 text-xs text-neutral-600">
-            <div class="rounded-lg bg-neutral-900/5 p-2">
-              <span class="block text-neutral-500">Humidity</span>
-              <span id="weatherHumidity" class="font-semibold"> --% </span>
-            </div>
-
-            <div class="rounded-lg bg-neutral-900/5 p-2">
-              <span class="block text-neutral-500">Wind</span>
-              <span id="weatherWind" class="font-semibold"> -- km/h </span>
-            </div>
-          </div>
-        </section>
-
-        <!-- =======================================================
-       FEATURE CARDS
-       ======================================================= -->
-        <section aria-label="Productivity features">
-          <div id="cardGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <!-- Todo Card -->
-            <button
-              type="button"
-              data-feature="todo"
-              class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
-            >
-              <div class="text-xl accent-text">✓</div>
-
-              <div>
-                <h2 class="text-sm font-semibold text-black">Todo List</h2>
-
-                <p class="text-xs text-neutral-500 mt-0.5">
-                  Capture and track today's tasks
-                </p>
-              </div>
-            </button>
-
-            <!-- Planner Card -->
-            <button
-              type="button"
-              data-feature="planner"
-              class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
-            >
-              <div class="text-xl accent-text">▣</div>
-
-              <div>
-                <h2 class="text-sm font-semibold text-black">Daily Planner</h2>
-
-                <p class="text-xs text-neutral-500 mt-0.5">
-                  Block out your hours
-                </p>
-              </div>
-            </button>
-
-            <!-- Motivation Card -->
-            <button
-              type="button"
-              data-feature="quote"
-              class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
-            >
-              <div class="text-xl accent-text">“</div>
-
-              <div>
-                <h2 class="text-sm font-semibold text-black">Motivation</h2>
-
-                <p class="text-xs text-neutral-500 mt-0.5">
-                  Get an inspirational quote
-                </p>
-              </div>
-            </button>
-
-            <!-- Pomodoro Card -->
-            <button
-              type="button"
-              data-feature="pomo"
-              class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
-            >
-              <div class="text-xl accent-text">◷</div>
-
-              <div>
-                <h2 class="text-sm font-semibold text-black">Focus Timer</h2>
-
-                <p class="text-xs text-neutral-500 mt-0.5">
-                  25 minute work sessions
-                </p>
-              </div>
-            </button>
-
-            <!-- Goals Card -->
-            <button
-              type="button"
-              data-feature="goals"
-              class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
-            >
-              <div class="text-xl accent-text">◎</div>
-
-              <div>
-                <h2 class="text-sm font-semibold text-black">Daily Goals</h2>
-
-                <p class="text-xs text-neutral-500 mt-0.5">
-                  Set and track today's goals
-                </p>
-              </div>
-            </button>
-          </div>
-        </section>
-      </main>
-
-      <!-- =========================================================
-     TODO VIEW
-     ========================================================= -->
-      <section
-        id="view-todo"
-        class="feature-view feature-view hidden fixed inset-0 z-20 overflow-y-auto"
-      >
-        <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <button
-              type="button"
-              data-back
-              class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
-            >
-              ← Back
-            </button>
-
-            <h2 class="font-display text-xl text-black">Todo List</h2>
-          </div>
-
-          <!-- Add Task -->
-          <div class="flex gap-2 mb-4">
-            <input
-              id="todoInput"
-              type="text"
-              placeholder="Add a task"
-              autocomplete="off"
-              class="flex-1 px-3 py-2.5 rounded-lg border border-neutral-900/10 bg-white/80 text-sm outline-none"
-            />
-
-            <button
-              id="todoAdd"
-              type="button"
-              class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
-            >
-              Add
-            </button>
-          </div>
-
-          <!-- Task List -->
-          <ul id="todoList" class="flex flex-col gap-2"></ul>
-        </div>
-      </section>
-
-      <!-- =========================================================
-     DAILY PLANNER VIEW
-     ========================================================= -->
-      <section
-        id="view-planner"
-        class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
-      >
-        <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <button
-              type="button"
-              data-back
-              class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
-            >
-              ← Back
-            </button>
-
-            <h2 class="font-display text-xl text-black">Daily Planner</h2>
-          </div>
-
-          <!--
-      JavaScript will read these time slots,
-      save their values and restore them from Local Storage.
-    -->
-
-          <div id="plannerSlots" class="flex flex-col gap-1">
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-06"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                6 AM
-              </label>
-
-              <input
-                id="plan-06"
-                data-hour="6"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-07"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                7 AM
-              </label>
-
-              <input
-                id="plan-07"
-                data-hour="7"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-08"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                8 AM
-              </label>
-
-              <input
-                id="plan-08"
-                data-hour="8"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-09"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                9 AM
-              </label>
-
-              <input
-                id="plan-09"
-                data-hour="9"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-10"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                10 AM
-              </label>
-
-              <input
-                id="plan-10"
-                data-hour="10"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-11"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                11 AM
-              </label>
-
-              <input
-                id="plan-11"
-                data-hour="11"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-12"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                12 PM
-              </label>
-
-              <input
-                id="plan-12"
-                data-hour="12"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-13"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                1 PM
-              </label>
-
-              <input
-                id="plan-13"
-                data-hour="13"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-14"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                2 PM
-              </label>
-
-              <input
-                id="plan-14"
-                data-hour="14"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-15"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                3 PM
-              </label>
-
-              <input
-                id="plan-15"
-                data-hour="15"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-16"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                4 PM
-              </label>
-
-              <input
-                id="plan-16"
-                data-hour="16"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-17"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                5 PM
-              </label>
-
-              <input
-                id="plan-17"
-                data-hour="17"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-18"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                6 PM
-              </label>
-
-              <input
-                id="plan-18"
-                data-hour="18"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-19"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                7 PM
-              </label>
-
-              <input
-                id="plan-19"
-                data-hour="19"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-20"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                8 PM
-              </label>
-
-              <input
-                id="plan-20"
-                data-hour="20"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-21"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                9 PM
-              </label>
-
-              <input
-                id="plan-21"
-                data-hour="21"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-
-            <div
-              class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2"
-            >
-              <label
-                for="plan-22"
-                class="w-16 text-xs text-neutral-500 shrink-0"
-              >
-                10 PM
-              </label>
-
-              <input
-                id="plan-22"
-                data-hour="22"
-                type="text"
-                placeholder="What will you do?"
-                class="planner-input flex-1 bg-transparent text-sm outline-none py-1"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================================================
-     MOTIVATION / QUOTE VIEW
-     ========================================================= -->
-      <section
-        id="view-quote"
-        class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
-      >
-        <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <button
-              type="button"
-              data-back
-              class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
-            >
-              ← Back
-            </button>
-
-            <h2 class="font-display text-xl text-black">Motivation</h2>
-          </div>
-
-          <div
-            class="rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur p-8 text-center"
-          >
-            <blockquote
-              id="quoteText"
-              class="font-display text-xl leading-snug mb-2"
-            >
-              "Click New Quote to get motivated."
-            </blockquote>
-
-            <cite id="quoteAuthor" class="not-italic text-sm text-neutral-600">
-              —
-            </cite>
-          </div>
-
-          <div class="text-center mt-5">
-            <button
-              id="quoteNew"
-              type="button"
-              class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
-            >
-              New Quote
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================================================
-     POMODORO VIEW
-     ========================================================= -->
-      <section
-        id="view-pomo"
-        class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
-      >
-        <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <button
-              type="button"
-              data-back
-              class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
-            >
-              ← Back
-            </button>
-
-            <h2 class="font-display text-xl text-black">Focus Timer</h2>
-          </div>
-
-          <div class="flex flex-col items-center gap-5 pt-4">
-            <!-- Session Type -->
-            <div id="pomoLabel" class="text-xs tracking-wide text-neutral-600">
-              WORK SESSION
-            </div>
-
-            <!-- Timer -->
-            <div
-              id="pomoDial"
-              class="font-display text-5xl sm:text-6xl tabular-nums"
-            >
-              25:00
-            </div>
-
-            <!-- Controls -->
-            <div class="flex flex-wrap justify-center gap-2">
-              <button
-                id="pomoStart"
-                type="button"
-                class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
-              >
-                Start
-              </button>
-
-              <button
-                id="pomoPause"
-                type="button"
-                class="px-4 py-2.5 rounded-lg border border-neutral-900/10 bg-white/70 text-sm"
-              >
-                Pause
-              </button>
-
-              <button
-                id="pomoReset"
-                type="button"
-                class="px-4 py-2.5 rounded-lg border border-neutral-900/10 bg-white/70 text-sm"
-              >
-                Reset
-              </button>
-            </div>
-
-            <!-- Timer Status / Notification -->
-            <p
-              id="pomoStatus"
-              class="text-xs text-neutral-500 text-center"
-              aria-live="polite"
-            >
-              Ready to focus.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================================================
-     DAILY GOALS VIEW
-     ========================================================= -->
-      <section
-        id="view-goals"
-        class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
-      >
-        <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <button
-              type="button"
-              data-back
-              class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
-            >
-              ← Back
-            </button>
-
-            <h2 class="font-display text-xl text-black">Daily Goals</h2>
-          </div>
-
-          <!-- Progress Bar -->
-          <div
-            class="h-2 rounded-full bg-neutral-900/10 overflow-hidden mb-2"
-            aria-label="Goal completion progress"
-          >
-            <div
-              id="goalFill"
-              class="h-full accent transition-all duration-300"
-              style="width: 0%"
+              id="clockDate"
+              class="text-xs text-neutral-600 mt-0.5"
             ></div>
           </div>
 
-          <!-- Progress Count -->
-          <div id="goalCount" class="text-xs text-neutral-600 mb-4">
-            0 of 0 completed
+          <button
+            id="themeToggle"
+            type="button"
+            aria-label="Toggle light and dark theme"
+            class="w-9 h-9 shrink-0 rounded-full cursor-pointer border border-neutral-900/10 bg-white/70 backdrop-blur flex items-center justify-center"
+          >
+            <i class="ri-moon-fill"></i>
+          </button>
+        </div>
+      </header>
+
+      <section
+        aria-label="Daily motivation"
+        class="rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+      >
+        <div class="min-w-0 flex-1">
+          <blockquote
+            id="miniQuoteText"
+            class="font-display text-base leading-snug break-words text-black text-wrap"
+          ></blockquote>
+
+          <cite
+            id="miniQuoteAuthor"
+            class="not-italic text-xs text-neutral-600"
+          ></cite>
+        </div>
+
+        <button
+          id="miniQuoteNew"
+          type="button"
+          class="self-start sm:self-auto shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full accent text-white"
+        >
+          New
+        </button>
+      </section>
+
+      <section
+        aria-label="Weather information"
+        class="rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 mb-6"
+      >
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div class="min-w-0">
+            <div
+              id="weatherLoc"
+              class="text-sm text-neutral-700 truncate"
+            >
+              Location
+            </div>
+
+            <div
+              id="weatherCond"
+              class="text-xs text-neutral-500 mt-0.5"
+            >
+              Weather condition
+            </div>
           </div>
 
-          <!-- Add Goal -->
-          <div class="flex gap-2 mb-4">
-            <input
-              id="goalInput"
-              type="text"
-              placeholder="Set a goal for today"
-              autocomplete="off"
-              class="flex-1 px-3 py-2.5 rounded-lg border border-neutral-900/10 bg-white/80 text-sm outline-none"
-            />
+          <div
+            id="weatherTemp"
+            class="font-display text-lg sm:text-xl shrink-0 text-black"
+          >
+            --°C
+          </div>
+        </div>
 
+        <div class="grid grid-cols-2 gap-3 text-xs text-neutral-600">
+          <div class="rounded-lg bg-neutral-900/5 p-2">
+            <span class="block text-neutral-500">
+              Humidity
+            </span>
+
+            <span
+              id="weatherHumidity"
+              class="font-semibold"
+            >
+              --%
+            </span>
+          </div>
+
+          <div class="rounded-lg bg-neutral-900/5 p-2">
+            <span class="block text-neutral-500">
+              Wind
+            </span>
+
+            <span
+              id="weatherWind"
+              class="font-semibold"
+            >
+              -- km/h
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section aria-label="Productivity features">
+        <div
+          id="cardGrid"
+          class="grid grid-cols-2 sm:grid-cols-3 gap-3"
+        >
+
+          <button
+            type="button"
+            id="todoBtn"
+            class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
+          >
+            <div class="text-xl accent-text">✓</div>
+
+            <div>
+              <h2 class="text-sm font-semibold text-black">
+                Todo List
+              </h2>
+
+              <p class="text-xs text-neutral-500 mt-0.5">
+                Capture and track today's tasks
+              </p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="plannerBtn"
+            class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
+          >
+            <div class="text-xl accent-text">▣</div>
+
+            <div>
+              <h2 class="text-sm font-semibold text-black">
+                Daily Planner
+              </h2>
+
+              <p class="text-xs text-neutral-500 mt-0.5">
+                Block out your hours
+              </p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="motivationBtn"
+            class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
+          >
+            <div class="text-xl accent-text">“</div>
+
+            <div>
+              <h2 class="text-sm font-semibold text-black">
+                Motivation
+              </h2>
+
+              <p class="text-xs text-neutral-500 mt-0.5">
+                Get an inspirational quote
+              </p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="pomodoroBtn"
+            class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
+          >
+            <div class="text-xl accent-text">◷</div>
+
+            <div>
+              <h2 class="text-sm font-semibold text-black">
+                Focus Timer
+              </h2>
+
+              <p class="text-xs text-neutral-500 mt-0.5">
+                25 minute work sessions
+              </p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="goalsBtn"
+            class="feature-card text-left rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur shadow-sm p-4 flex flex-col justify-between gap-3 min-h-[120px] hover:-translate-y-0.5 transition-transform"
+          >
+            <div class="text-xl accent-text">◎</div>
+
+            <div>
+              <h2 class="text-sm font-semibold text-black">
+                Daily Goals
+              </h2>
+
+              <p class="text-xs text-neutral-500 mt-0.5">
+                Set and track today's goals
+              </p>
+            </div>
+          </button>
+
+        </div>
+      </section>
+    </main>
+
+    <section
+      id="view-todo"
+      class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
+    >
+      <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
+
+        <div class="flex items-center gap-3 mb-6">
+          <button
+            type="button"
+            class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
+          >
+            ← Back
+          </button>
+
+          <h2 class="font-display text-xl text-black">
+            Todo List
+          </h2>
+        </div>
+
+        <div class="flex gap-2 mb-4">
+          <input
+            id="todoInput"
+            type="text"
+            placeholder="Add a task"
+            autocomplete="off"
+            class="flex-1 px-3 py-2.5 rounded-lg border border-neutral-900/10 bg-white/80 text-sm outline-none"
+          />
+
+          <button
+            id="todoAdd"
+            type="button"
+            class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
+          >
+            Add
+          </button>
+        </div>
+
+        <ul
+          id="todoList"
+          class="flex flex-col gap-2"
+        ></ul>
+
+      </div>
+    </section>
+
+    <section
+      id="view-planner"
+      class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
+    >
+      <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
+
+        <div class="flex items-center gap-3 mb-6">
+          <button
+            type="button"
+            class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
+          >
+            ← Back
+          </button>
+
+          <h2 class="font-display text-xl text-black">
+            Daily Planner
+          </h2>
+        </div>
+
+        <div
+          id="plannerSlots"
+          class="flex flex-col gap-1"
+        >
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-06" class="w-16 text-xs text-neutral-500 shrink-0">6 AM</label>
+            <input id="plan-06" data-hour="6" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-07" class="w-16 text-xs text-neutral-500 shrink-0">7 AM</label>
+            <input id="plan-07" data-hour="7" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-08" class="w-16 text-xs text-neutral-500 shrink-0">8 AM</label>
+            <input id="plan-08" data-hour="8" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-09" class="w-16 text-xs text-neutral-500 shrink-0">9 AM</label>
+            <input id="plan-09" data-hour="9" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-10" class="w-16 text-xs text-neutral-500 shrink-0">10 AM</label>
+            <input id="plan-10" data-hour="10" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-11" class="w-16 text-xs text-neutral-500 shrink-0">11 AM</label>
+            <input id="plan-11" data-hour="11" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-12" class="w-16 text-xs text-neutral-500 shrink-0">12 PM</label>
+            <input id="plan-12" data-hour="12" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-13" class="w-16 text-xs text-neutral-500 shrink-0">1 PM</label>
+            <input id="plan-13" data-hour="13" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-14" class="w-16 text-xs text-neutral-500 shrink-0">2 PM</label>
+            <input id="plan-14" data-hour="14" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-15" class="w-16 text-xs text-neutral-500 shrink-0">3 PM</label>
+            <input id="plan-15" data-hour="15" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-16" class="w-16 text-xs text-neutral-500 shrink-0">4 PM</label>
+            <input id="plan-16" data-hour="16" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-17" class="w-16 text-xs text-neutral-500 shrink-0">5 PM</label>
+            <input id="plan-17" data-hour="17" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-18" class="w-16 text-xs text-neutral-500 shrink-0">6 PM</label>
+            <input id="plan-18" data-hour="18" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-19" class="w-16 text-xs text-neutral-500 shrink-0">7 PM</label>
+            <input id="plan-19" data-hour="19" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-20" class="w-16 text-xs text-neutral-500 shrink-0">8 PM</label>
+            <input id="plan-20" data-hour="20" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-21" class="w-16 text-xs text-neutral-500 shrink-0">9 PM</label>
+            <input id="plan-21" data-hour="21" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+
+          <div class="planner-slot flex items-center gap-3 border-b border-neutral-900/10 py-2 px-2">
+            <label for="plan-22" class="w-16 text-xs text-neutral-500 shrink-0">10 PM</label>
+            <input id="plan-22" data-hour="22" type="text" placeholder="What will you do?" class="planner-input flex-1 bg-transparent text-sm outline-none py-1" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="view-quote"
+      class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
+    >
+      <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
+
+        <div class="flex items-center gap-3 mb-6">
+          <button
+            type="button"
+            class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
+          >
+            ← Back
+          </button>
+
+          <h2 class="font-display text-xl text-black">
+            Motivation
+          </h2>
+        </div>
+
+        <div
+          class="rounded-2xl border border-neutral-900/10 bg-white/70 backdrop-blur p-8 text-center"
+        >
+          <blockquote
+            id="quoteText"
+            class="font-display text-xl leading-snug mb-2"
+          >
+            "Click New Quote to get motivated."
+          </blockquote>
+
+          <cite
+            id="quoteAuthor"
+            class="not-italic text-sm text-neutral-600"
+          >
+            —
+          </cite>
+        </div>
+
+        <div class="text-center mt-5">
+          <button
+            id="quoteNew"
+            type="button"
+            class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
+          >
+            New Quote
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="view-pomo"
+      class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
+    >
+      <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
+
+        <div class="flex items-center gap-3 mb-6">
+          <button
+            type="button"
+            class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
+          >
+            ← Back
+          </button>
+
+          <h2 class="font-display text-xl text-black">
+            Focus Timer
+          </h2>
+        </div>
+
+        <div class="flex flex-col items-center gap-5 pt-4">
+
+          <div
+            id="pomoLabel"
+            class="text-xs tracking-wide text-neutral-600"
+          >
+            WORK SESSION
+          </div>
+
+          <div
+            id="pomoDial"
+            class="font-display text-5xl sm:text-6xl tabular-nums"
+          >
+            25:00
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-2">
             <button
-              id="goalAdd"
+              id="pomoStart"
               type="button"
               class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
             >
-              Add
+              Start
+            </button>
+
+            <button
+              id="pomoPause"
+              type="button"
+              class="px-4 py-2.5 rounded-lg border border-neutral-900/10 bg-white/70 text-sm"
+            >
+              Pause
+            </button>
+
+            <button
+              id="pomoReset"
+              type="button"
+              class="px-4 py-2.5 rounded-lg border border-neutral-900/10 bg-white/70 text-sm"
+            >
+              Reset
             </button>
           </div>
 
-          <!-- Goals List -->
-          <ul id="goalList" class="flex flex-col gap-2"></ul>
+          <p
+            id="pomoStatus"
+            class="text-xs text-neutral-500 text-center"
+          >
+            Ready to focus.
+          </p>
+
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
 
-    <!-- =========================================================
-       USER'S OWN JAVASCRIPT
-       ========================================================= -->
+    <section
+      id="view-goals"
+      class="feature-view hidden fixed inset-0 z-20 overflow-y-auto"
+    >
+      <div class="max-w-xl mx-auto px-5 pt-8 pb-16">
 
-    <script src="scripts.js"></script>
-  </body>
+        <div class="flex items-center gap-3 mb-6">
+          <button
+            type="button"
+            class="back-btn text-sm px-3 py-1.5 rounded-lg border border-neutral-900/10 bg-white/70"
+          >
+            ← Back
+          </button>
+
+          <h2 class="font-display text-xl text-black">
+            Daily Goals
+          </h2>
+        </div>
+
+        <div
+          class="h-2 rounded-full bg-neutral-900/10 overflow-hidden mb-2"
+        >
+          <div
+            id="goalFill"
+            class="h-full accent transition-all duration-300"
+            style="width: 0%"
+          ></div>
+        </div>
+
+        <div
+          id="goalCount"
+          class="text-xs text-neutral-600 mb-4"
+        >
+          0 of 0 completed
+        </div>
+
+        <div class="flex gap-2 mb-4">
+          <input
+            id="goalInput"
+            type="text"
+            placeholder="Set a goal for today"
+            autocomplete="off"
+            class="flex-1 px-3 py-2.5 rounded-lg border border-neutral-900/10 bg-white/80 text-sm outline-none"
+          />
+
+          <button
+            id="goalAdd"
+            type="button"
+            class="px-4 py-2.5 rounded-lg accent text-white text-sm font-semibold"
+          >
+            Add
+          </button>
+        </div>
+
+        <ul
+          id="goalList"
+          class="flex flex-col gap-2"
+        ></ul>
+
+      </div>
+    </section>
+
+  </div>
+  
+  <script src="scripts.js"></script>
+</body>
 </html>
